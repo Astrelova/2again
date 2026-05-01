@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчёт по заданию 2 — HTTP-запросы</title>
+    <style>
+        body { font-family: Arial; max-width: 900px; margin: auto; padding: 20px; }
+        h2 { border-bottom: 2px solid #333; margin-top: 30px; }
+        img { width: 100%; border: 1px solid #ccc; margin: 10px 0; }
+        code { background: #f4f4f4; padding: 2px 6px; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+<h1>Задание 2. Программно-аппаратные средства Web</h1>
+<p><b>Студент:</b> u82689</p>
+<p><b>Домен:</b> u82689.kubsu-dev.ru</p>
+
+<h2>1. GET главной страницы в HTTP 1.0</h2>
+<p>Метод <code>GET</code> запрашивает главную страницу. Протокол HTTP 1.0 после ответа сразу закрывает соединение (<code>Connection: close</code>).</p>
+<pre>GET / HTTP/1.0</pre>
+<img src="1.png" alt="Задание 1">
+
+<h2>2. GET внутренней страницы в HTTP 1.1</h2>
+<p>В протоколе HTTP 1.1 обязателен заголовок <code>Host</code>. Запрошена страница <code>index.php</code> через подпапку домена.</p>
+<pre>GET /u82689.kubsu-dev.ru/index.php HTTP/1.1
+Host: u82689.kubsu-dev.ru</pre>
+<img src="2.png" alt="Задание 2">
+
+<h2>3. Размер файла file.tar.gz (HEAD)</h2>
+<p>Метод <code>HEAD</code> запрашивает только заголовки. Размер файла указан в заголовке <code>Content-Length: 11335</code> байт.</p>
+<pre>HEAD /u82689.kubsu-dev.ru/file.tar.gz HTTP/1.1
+Host: u82689.kubsu-dev.ru</pre>
+<img src="3.png" alt="Задание 3">
+
+<h2>4. Медиатип ресурса /image.png</h2>
+<p>Метод <code>HEAD</code> возвращает заголовок <code>Content-Type: image/png</code> — это медиатип PNG-изображения.</p>
+<pre>HEAD /u82689.kubsu-dev.ru/image.png HTTP/1.1
+Host: u82689.kubsu-dev.ru</pre>
+<img src="4.png" alt="Задание 4">
+
+<h2>5. Отправка комментария методом POST</h2>
+<p>Метод <code>POST</code> отправляет данные на сервер. Заголовок <code>Content-Type: application/x-www-form-urlencoded</code> указывает формат данных. <code>Content-Length: 14</code> — длина строки <code>comment=Hello</code>. Сервер вернул массив с комментарием — запрос обработан успешно.</p>
+<pre>POST /u82689.kubsu-dev.ru/index.php HTTP/1.1
+Host: u82689.kubsu-dev.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 14
+
+comment=Hello</pre>
+<img src="5.png" alt="Задание 5">
+
+<h2>6. Первые 100 байт файла</h2>
+<p>Заголовок <code>Range: bytes=0-99</code> запрашивает часть файла. Сервер отвечает статусом <code>206 Partial Content</code> и заголовком <code>Content-Range</code>.</p>
+<pre>GET /u82689.kubsu-dev.ru/file.tar.gz HTTP/1.1
+Host: u82689.kubsu-dev.ru
+Range: bytes=0-99</pre>
+<img src="6.png" alt="Задание 6">
+
+<h2>7. Кодировка ресурса index.php</h2>
+<p>Метод <code>HEAD</code> возвращает заголовок <code>Content-Type</code> с указанием кодировки. В ответе: <code>charset=UTF-8</code>.</p>
+<pre>HEAD /u82689.kubsu-dev.ru/index.php HTTP/1.1
+Host: u82689.kubsu-dev.ru</pre>
+<img src="7.png" alt="Задание 7">
+
+</body>
+</html>
